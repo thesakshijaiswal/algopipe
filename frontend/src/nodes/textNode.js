@@ -14,7 +14,7 @@ export const TextNode = ({ id, data }) => {
         <span>Text</span>
       </div>
       <div>
-        <label>
+        <label className="text-red-500 font-semibold">
           Text:
           <input type="text" value={currText} onChange={handleTextChange} />
         </label>
