@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Handle, Position } from "reactflow";
+import { Position } from "reactflow";
 import { BaseNode } from "./BaseNode";
 
 export const TextNode = ({ id, data }) => {
@@ -40,21 +40,17 @@ export const TextNode = ({ id, data }) => {
           id: `${id}-output`,
           className: "!bg-gradient-to-r !from-amber-500 !to-orange-600",
         },
+        ...variables.map((variable, index) => ({
+          type: "target",
+          position: Position.Left,
+          id: variable,
+          style: {
+            top: 40 + index * 24,
+            background: "#a855f7",
+          },
+        })),
       ]}
     >
-      {variables.map((variable) => (
-        <Handle
-          key={variable}
-          type="target"
-          position={Position.Left}
-          id={variable}
-          style={{
-            top: 40 + variables.indexOf(variable) * 20,
-            background: "#a855f7",
-          }}
-        />
-      ))}
-
       <div className="space-y-1">
         <label className="block text-xs font-medium text-gray-700 tracking-wide">
           Content Text
