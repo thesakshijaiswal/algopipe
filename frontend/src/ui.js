@@ -2,19 +2,31 @@ import { useState, useRef, useCallback } from "react";
 import ReactFlow, { Controls, Background, MiniMap } from "reactflow";
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
-import { InputNode } from "./nodes/InputNode.jsx";
-import { LLMNode } from "./nodes/LLMNode.jsx";
-import { OutputNode } from "./nodes/OutputNode.jsx";
-import { TextNode } from "./nodes/TextNode.jsx";
+import {
+  InputNode,
+  LLMNode,
+  OutputNode,
+  TextNode,
+  APICallNode,
+  MathNode,
+  DateFormatterNode,
+  LoggerNode,
+  ConditionNode,
+} from "./nodes";
 import "reactflow/dist/style.css";
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
 const nodeTypes = {
-  customInput: InputNode,
+  Input: InputNode,
   llm: LLMNode,
-  customOutput: OutputNode,
+  Output: OutputNode,
   text: TextNode,
+  API: APICallNode,
+  math: MathNode,
+  date: DateFormatterNode,
+  log: LoggerNode,
+  cond: ConditionNode,
 };
 
 const selector = (state) => ({
