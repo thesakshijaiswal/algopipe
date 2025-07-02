@@ -1,4 +1,4 @@
-export const DraggableNode = ({ type, label }) => {
+export const DraggableNode = ({ type, label, icon: Icon }) => {
   const onDragStart = (event, nodeType) => {
     const appData = { nodeType };
     event.target.style.cursor = "grabbing";
@@ -18,6 +18,7 @@ export const DraggableNode = ({ type, label }) => {
       draggable
     >
       <div className="flex flex-col items-center justify-center text-white">
+        {Icon && <Icon className="text-xl mb-1" />}
         <span className="text-sm">{label}</span>
       </div>
     </div>
