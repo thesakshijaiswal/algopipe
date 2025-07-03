@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import ReactFlow, { Controls, Background, MiniMap } from "reactflow";
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
@@ -40,6 +40,7 @@ const selector = (state) => ({
 });
 
 export const PipelineUI = () => {
+  const [nodeColors, setNodeColors] = useState(new Map());
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const {
@@ -68,7 +69,6 @@ export const PipelineUI = () => {
         );
         const type = appData?.nodeType;
 
-        // check if the dropped element is valid
         if (typeof type === "undefined" || !type) {
           return;
         }
@@ -89,7 +89,7 @@ export const PipelineUI = () => {
         addNode(newNode);
       }
     },
-    [reactFlowInstance]
+    [reactFlowInstance, addNode, getNodeID]
   );
 
   const onDragOver = useCallback((event) => {
@@ -97,9 +97,36 @@ export const PipelineUI = () => {
     event.dataTransfer.dropEffect = "move";
   }, []);
 
+  const getNodeColor = useCallback(
+    (nodeId) => {
+      if (nodeColors.has(nodeId)) {
+        return nodeColors.get(nodeId);
+      }
+
+      const r = Math.floor(Math.random() * 50 + 150);
+      const g = Math.floor(Math.random() * 50 + 150);
+      const b = Math.floor(Math.random() * 50 + 150);
+      const color = `rgb(${r}, ${g}, ${b})`;
+
+      setNodeColors((prev) => new Map(prev.set(nodeId, color)));
+      return color;
+    },
+    [nodeColors]
+  );
+
+  const nodeColorMap = useMemo(() => {
+    const colorMap = new Map();
+    nodes.forEach((node) => {
+      if (!colorMap.has(node.id)) {
+        colorMap.set(node.id, getNodeColor(node.id));
+      }
+    });
+    return colorMap;
+  }, [nodes, getNodeColor]);
+
   return (
     <>
-      <div ref={reactFlowWrapper} style={{ width: "100wv", height: "70vh" }}>
+      <div ref={reactFlowWrapper} style={{ width: "100wv", height: "73vh" }}>
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -115,8 +142,15 @@ export const PipelineUI = () => {
           connectionLineType="smoothstep"
         >
           <Background color="#aaa" gap={gridSize} />
-          <Controls />
-          <MiniMap />
+          <Controls className="flex-col space-y-3 bg-violet-100 p-2" />
+          <MiniMap
+            className="shadow-lg"
+            style={{ backgroundColor: "white" }}
+            nodeColor={(node) =>
+              nodeColorMap.get(node.id) || getNodeColor(node.id)
+            }
+            maskColor="rgba(124, 58, 237, 0.1)"
+          />
         </ReactFlow>
       </div>
     </>
