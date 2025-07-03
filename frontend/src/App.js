@@ -1,6 +1,5 @@
 import { PipelineToolbar } from "./toolbar";
 import { PipelineUI } from "./ui";
-import { SubmitButton } from "./SubmitButton";
 import { Navbar } from "./components/Navbar";
 
 function App() {
@@ -9,7 +8,6 @@ function App() {
       <Navbar />
       <PipelineToolbar />
       <PipelineUI />
-      <SubmitButton />
     </div>
   );
 }
