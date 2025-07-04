@@ -1,7 +1,24 @@
 {
   "name": "frontend",
+  "description": "A FastAPI backend service to validate pipeline workflows and detect Directed Acyclic Graphs (DAGs) using efficient cycle detection. Ideal for integrating with React-based visual editors and data flow tools.",
   "version": "0.1.0",
   "private": true,
+  "keywords": [
+  "DAG validator",
+  "Directed Acyclic Graph",
+  "graph cycle detection",
+  "python",
+  "FastAPI",
+  "Pydantic",
+  "pipeline workflow checker",
+  "workflow validation",
+  "React backend API",
+  "REST API",
+  "no-code pipeline tool",
+  "graph analysis",
+  "graph validation API"
+],
+"author": "Sakshi Jaiswal",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
