@@ -7,7 +7,7 @@ import {
   BsCalendar,
   BsBug,
 } from "react-icons/bs";
-import { DraggableNode } from "./draggableNode";
+import { DraggableNode } from "./DraggableNode";
 import { useEffect, useRef } from "react";
 
 const nodeConfig = [
