@@ -32,7 +32,7 @@ AlgoPipe is a fast, lightweight visual pipeline editor built with React, Tailwin
 
 ### Backend
 
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="48" height="48"> | <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" height="48"> | <img src="https://docs.pydantic.dev/latest/logo-white.svg" width="48" height="48"> | <img src="https://www.uvicorn.org/uvicorn.png" width="48" height="48"> |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="48" height="48"> | <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" width="90" height="48"> | <img src="https://docs.pydantic.dev/latest/logo-white.svg" width="48" height="48" style="background-color: #000000; padding: 4px; border-radius: 4px;"> | <img src="https://www.uvicorn.org/uvicorn.png" width="48" height="48"> |
 |:---:|:---:|:---:|:---:|
 | **Python** | **FastAPI** | **Pydantic** | **Uvicorn** |
 
