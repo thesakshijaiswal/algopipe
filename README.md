@@ -26,13 +26,13 @@ AlgoPipe is a fast, lightweight visual pipeline editor built with React, Tailwin
 
 ### Frontend
 
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="48" height="48" alt="react"> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="48" height="48" alt="tailwind"> | <span style="font-size: 48px;">🐻</span> | <img src="https://reactflow.dev/img/logo.svg" width="48" height="48"> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" width="48" height="48"> | <img src="https://raw.githubusercontent.com/react-icons/react-icons/master/react-icons.svg" width="48" height="48"> |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="48" height="48" alt="react"> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="48" height="48" alt="tailwind"> | <h1>🐻</h1> | <img src="https://reactflow.dev/img/logo.svg" width="48" height="48"> | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg" width="48" height="48"> | <img src="https://raw.githubusercontent.com/react-icons/react-icons/master/react-icons.svg" width="48" height="48"> |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **React** | **Tailwind CSS** | **Zustand** | **React Flow** | **Vite** | **React Icons** |
 
 ### Backend
 
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="48" height="48"> | <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" width="90" height="48"> | <img src="https://docs.pydantic.dev/latest/logo-white.svg" width="48" height="48" style="background-color: #000000; padding: 4px; border-radius: 4px;"> | <img src="https://www.uvicorn.org/uvicorn.png" width="48" height="48"> |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="48" height="48"> | <img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" width="90" height="48"> | <img src="https://avatars.githubusercontent.com/u/110818415?s=48&v=4" width="48" height="48" style="background-color: #000000; padding: 4px; border-radius: 4px;"> | <img src="https://www.uvicorn.org/uvicorn.png" width="48" height="48"> |
 |:---:|:---:|:---:|:---:|
 | **Python** | **FastAPI** | **Pydantic** | **Uvicorn** |
 
@@ -59,7 +59,7 @@ Before starting, ensure you have the following installed on your system:
 #### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/thesakshijaiswal/algopipe.git
 cd algopipe
 ```
 
