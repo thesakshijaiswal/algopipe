@@ -103,6 +103,10 @@ npm start
 
 The frontend will be available at `http://localhost:3000`
 
+## Preview
+
+![AlgoPipe-Demo](https://github.com/user-attachments/assets/f1779751-e8d1-48a5-8c70-24528b680452)
+
 ## 🛠 Developer
 
 [![GitHub](https://img.shields.io/badge/GitHub-thesakshijaiswal-181717?style=for-the-badge&logo=github)](https://github.com/thesakshijaiswal)
