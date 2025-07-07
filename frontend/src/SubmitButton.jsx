@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useStore } from "./store";
 import { Modal } from "./components/Modal";
+import config from "./config";
 
 export const SubmitButton = () => {
   const { nodes, edges } = useStore();
@@ -11,6 +12,7 @@ export const SubmitButton = () => {
     try {
       const pipelineData = { nodes, edges };
       console.log("Sending pipeline data:", pipelineData);
+      console.log("API URL:", config.API_BASE_URL);
 
       if (nodes.length === 0) {
         setModalContent({
@@ -21,7 +23,7 @@ export const SubmitButton = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:8000/pipelines/parse", {
+      const response = await fetch(`${config.API_BASE_URL}/pipelines/parse`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pipelineData),
