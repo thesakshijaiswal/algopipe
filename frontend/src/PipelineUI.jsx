@@ -39,7 +39,7 @@ const selector = (state) => ({
   onConnect: state.onConnect,
 });
 
-export const PipelineUI = () => {
+export const PipelineUI = ({ draggingNodeType, setDraggingNodeType }) => {
   const [nodeColors, setNodeColors] = useState(new Map());
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -53,15 +53,14 @@ export const PipelineUI = () => {
     onConnect,
   } = useStore(selector, shallow);
 
-  const getInitNodeData = (nodeID, type) => {
-    let nodeData = { id: nodeID, nodeType: `${type}` };
-    return nodeData;
-  };
+  const getInitNodeData = (nodeID, type) => ({
+    id: nodeID,
+    nodeType: `${type}`,
+  });
 
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
-
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       if (event?.dataTransfer?.getData("application/reactflow")) {
         const appData = JSON.parse(
@@ -69,9 +68,7 @@ export const PipelineUI = () => {
         );
         const type = appData?.nodeType;
 
-        if (typeof type === "undefined" || !type) {
-          return;
-        }
+        if (!type) return;
 
         const position = reactFlowInstance.project({
           x: event.clientX - reactFlowBounds.left,
@@ -92,6 +89,33 @@ export const PipelineUI = () => {
     [reactFlowInstance, addNode, getNodeID]
   );
 
+  const onTouchEnd = useCallback(
+    (event) => {
+      if (!draggingNodeType || !reactFlowInstance) return;
+
+      const touch = event.changedTouches?.[0];
+      if (!touch) return;
+
+      const bounds = reactFlowWrapper.current.getBoundingClientRect();
+      const position = reactFlowInstance.project({
+        x: touch.clientX - bounds.left,
+        y: touch.clientY - bounds.top,
+      });
+
+      const nodeID = getNodeID(draggingNodeType);
+      const newNode = {
+        id: nodeID,
+        type: draggingNodeType,
+        position,
+        data: getInitNodeData(nodeID, draggingNodeType),
+      };
+
+      addNode(newNode);
+      setDraggingNodeType(null);
+    },
+    [draggingNodeType, reactFlowInstance, addNode, getNodeID]
+  );
+
   const onDragOver = useCallback((event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
@@ -99,9 +123,7 @@ export const PipelineUI = () => {
 
   const getNodeColor = useCallback(
     (nodeId) => {
-      if (nodeColors.has(nodeId)) {
-        return nodeColors.get(nodeId);
-      }
+      if (nodeColors.has(nodeId)) return nodeColors.get(nodeId);
 
       const r = Math.floor(Math.random() * 50 + 150);
       const g = Math.floor(Math.random() * 50 + 150);
@@ -125,34 +147,36 @@ export const PipelineUI = () => {
   }, [nodes, getNodeColor]);
 
   return (
-    <>
-      <div ref={reactFlowWrapper} style={{ width: "100wv", height: "73vh" }}>
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onInit={setReactFlowInstance}
-          nodeTypes={nodeTypes}
-          proOptions={proOptions}
-          snapGrid={[gridSize, gridSize]}
-          connectionLineType="smoothstep"
-        >
-          <Background color="#aaa" gap={gridSize} />
-          <Controls className="flex-col space-y-3 bg-violet-100 p-2" />
-          <MiniMap
-            className="shadow-lg"
-            style={{ backgroundColor: "white" }}
-            nodeColor={(node) =>
-              nodeColorMap.get(node.id) || getNodeColor(node.id)
-            }
-            maskColor="rgba(124, 58, 237, 0.1)"
-          />
-        </ReactFlow>
-      </div>
-    </>
+    <div
+      ref={reactFlowWrapper}
+      style={{ width: "100vw", height: "73vh" }}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+      onTouchEnd={onTouchEnd}
+    >
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onInit={setReactFlowInstance}
+        nodeTypes={nodeTypes}
+        proOptions={proOptions}
+        snapGrid={[gridSize, gridSize]}
+        connectionLineType="smoothstep"
+      >
+        <Background color="#aaa" gap={gridSize} />
+        <Controls className="flex-col space-y-3 bg-violet-100 p-2" />
+        <MiniMap
+          className="shadow-lg"
+          style={{ backgroundColor: "white" }}
+          nodeColor={(node) =>
+            nodeColorMap.get(node.id) || getNodeColor(node.id)
+          }
+          maskColor="rgba(124, 58, 237, 0.1)"
+        />
+      </ReactFlow>
+    </div>
   );
 };

@@ -22,7 +22,7 @@ const nodeConfig = [
   { type: "cond", label: "Condition", icon: FaCodeBranch },
 ];
 
-export const PipelineToolbar = () => {
+export const PipelineToolbar = ({ onStartDrag }) => {
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -50,6 +50,7 @@ export const PipelineToolbar = () => {
             type={node.type}
             label={node.label}
             icon={node.icon}
+            onStartDrag={onStartDrag}
           />
         ))}
       </div>
