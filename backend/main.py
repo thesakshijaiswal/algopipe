@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any
+import os
 
 app = FastAPI()
 
@@ -106,3 +107,9 @@ def parse_pipeline(pipeline_data: PipelineData):
             "num_edges": 0,
             "is_dag": False
         }
+
+# Add this for Render deployment
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
