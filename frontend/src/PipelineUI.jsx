@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import ReactFlow, { Controls, Background, MiniMap } from "reactflow";
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
@@ -120,21 +120,28 @@ export const PipelineUI = ({ draggingNodeType, setDraggingNodeType }) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
+  useEffect(() => {
+    setNodeColors((prevColors) => {
+      const updatedColors = new Map(prevColors);
+      let hasNew = false;
 
-  const getNodeColor = useCallback(
-    (nodeId) => {
-      if (nodeColors.has(nodeId)) return nodeColors.get(nodeId);
+      nodes.forEach((node) => {
+        if (!updatedColors.has(node.id)) {
+          const r = Math.floor(Math.random() * 50 + 150);
+          const g = Math.floor(Math.random() * 50 + 150);
+          const b = Math.floor(Math.random() * 50 + 150);
+          updatedColors.set(node.id, `rgb(${r}, ${g}, ${b})`);
+          hasNew = true;
+        }
+      });
 
-      const r = Math.floor(Math.random() * 50 + 150);
-      const g = Math.floor(Math.random() * 50 + 150);
-      const b = Math.floor(Math.random() * 50 + 150);
-      const color = `rgb(${r}, ${g}, ${b})`;
+      return hasNew ? updatedColors : prevColors;
+    });
+  }, [nodes]);
 
-      setNodeColors((prev) => new Map(prev.set(nodeId, color)));
-      return color;
-    },
-    [nodeColors]
-  );
+  const getNodeColor = (nodeId) => {
+    return nodeColors.get(nodeId) || "rgb(200, 200, 200)";
+  };
 
   const nodeColorMap = useMemo(() => {
     const colorMap = new Map();
@@ -171,9 +178,7 @@ export const PipelineUI = ({ draggingNodeType, setDraggingNodeType }) => {
         <MiniMap
           className="shadow-lg"
           style={{ backgroundColor: "white" }}
-          nodeColor={(node) =>
-            nodeColorMap.get(node.id) || getNodeColor(node.id)
-          }
+          nodeColor={(node) => getNodeColor(node.id)}
           maskColor="rgba(124, 58, 237, 0.1)"
         />
       </ReactFlow>
