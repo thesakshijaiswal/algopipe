@@ -4,7 +4,7 @@ export const Navbar = () => {
     <div className="h-16 shadow-lg flex items-center justify-between">
       <div className="flex items-center">
         <img
-          src="/pipe_logo.png"
+          src="/logo512.png"
           alt="Logo"
           className="md:h-12 h-10 w-auto ml-4"
         />

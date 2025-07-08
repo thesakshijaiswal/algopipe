@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import ReactFlow, { Controls, Background, MiniMap } from "reactflow";
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
@@ -113,7 +113,13 @@ export const PipelineUI = ({ draggingNodeType, setDraggingNodeType }) => {
       addNode(newNode);
       setDraggingNodeType(null);
     },
-    [draggingNodeType, reactFlowInstance, addNode, getNodeID]
+    [
+      draggingNodeType,
+      reactFlowInstance,
+      addNode,
+      getNodeID,
+      setDraggingNodeType,
+    ]
   );
 
   const onDragOver = useCallback((event) => {
@@ -142,16 +148,6 @@ export const PipelineUI = ({ draggingNodeType, setDraggingNodeType }) => {
   const getNodeColor = (nodeId) => {
     return nodeColors.get(nodeId) || "rgb(200, 200, 200)";
   };
-
-  const nodeColorMap = useMemo(() => {
-    const colorMap = new Map();
-    nodes.forEach((node) => {
-      if (!colorMap.has(node.id)) {
-        colorMap.set(node.id, getNodeColor(node.id));
-      }
-    });
-    return colorMap;
-  }, [nodes, getNodeColor]);
 
   return (
     <div

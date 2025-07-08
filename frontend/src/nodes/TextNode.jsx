@@ -219,21 +219,6 @@ export const TextNode = ({ id, data }) => {
           </span>
         </div>
       )}
-
-      <style jsx>{`
-        .variable-styled-textarea {
-          background: linear-gradient(
-            135deg,
-            rgba(168, 85, 247, 0.1) 0%,
-            rgba(236, 72, 153, 0.1) 100%
-          );
-        }
-
-        /* Style variables in textarea - this is a simplified approach */
-        .variable-styled-textarea:focus {
-          background: rgba(255, 255, 255, 0.95);
-        }
-      `}</style>
     </BaseNode>
   );
 };
