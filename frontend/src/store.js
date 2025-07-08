@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createWithEqualityFn } from "zustand/traditional";
 import {
   addEdge,
   applyNodeChanges,
@@ -6,9 +6,10 @@ import {
   MarkerType,
 } from "reactflow";
 
-export const useStore = create((set, get) => ({
+export const useStore = createWithEqualityFn((set, get) => ({
   nodes: [],
   edges: [],
+  nodeIDs: {},
   getNodeID: (type) => {
     const newIDs = { ...get().nodeIDs };
     if (newIDs[type] === undefined) {
@@ -52,7 +53,6 @@ export const useStore = create((set, get) => ({
         if (node.id === nodeId) {
           node.data = { ...node.data, [fieldName]: fieldValue };
         }
-
         return node;
       }),
     });
